@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>График сотрудника</title>
+</head>
+<body>
+    <h1>График {{ employee.name }}</h1>
+    <form action="/add_schedule/{{ employee.id }}" method="post">
+        <input type="date" name="date" required>
+        <select name="type" required>
+            <option value="work">Рабочий день</option>
+            <option value="day off">Выходной</option>
+            <option value="vacation">Отпуск</option>
+        </select>
+        <input type="number" name="hours" placeholder="Часы (0 для выходных)" required>
+        <button type="submit">Добавить</button>
+    </form>
+    <h2>Расписание</h2>
+    <ul>
+        {% for schedule in schedules %}
+        <li>{{ schedule.date }}: {{ schedule.type }} ({{ schedule.hours }} ч.)</li>
+        {% endfor %}
+    </ul>
+    <a href="/report/{{ employee.id }}">Посмотреть отчет</a>
+    <br>
+    <a href="/">На главную</a>
+</body>
+</html>
